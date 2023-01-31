@@ -1,19 +1,14 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { BotaoModal, ListadeGastos } from 'src/context/atom';
+import { Box } from '@ui/Box';
+import styles from './Extrato.module.scss';
+import { Modal } from '@ui/Modais/ExtratoModal';
 import { GiPayMoney, GiReceiveMoney } from 'react-icons/gi';
 import { AiOutlineCreditCard } from 'react-icons/ai';
 import { ListaDeGastos } from 'src/Interfaces/ListaDeGastos';
 import { FormataBRL } from 'src/utils/useFormataBRL';
-import { Modal } from '@ui/Modais/ExtratoModal';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { BotaoModal, ListadeGastos } from 'src/context/atom';
-import { Box } from '@ui/Box';
 
-const inter = Inter({ subsets: ['latin'] })
-
-export default function Home() {
+export const Extrato = () => {
 
   const [, setIsModalOpen] = useRecoilState(BotaoModal);
 
@@ -23,11 +18,10 @@ export default function Home() {
 
   const card = useRecoilValue(ListadeGastos);
 
-
   const TestaPagamento = (card: ListaDeGastos) => {
     return card.opcaoPagamento === 1 ?
       card.Preco >= 0 ?
-        <GiReceiveMoney className="" />
+        <GiReceiveMoney className={styles.inputs__svg1_dtl} />
         : <GiPayMoney />
       : <AiOutlineCreditCard />;
   };
